@@ -63,6 +63,7 @@ void start(void)
 {
 
     mqtt_client_event_group = xEventGroupCreate();
+    xEventGroupSetBits(*mqtt_client.mqtt_event_group, DISCONNECTED_FROM_MQTT_BROKER);
 
     xEventGroupWaitBits(mqtt_client_event_group, NETWORK_AVAILABLE,
                         pdFALSE,

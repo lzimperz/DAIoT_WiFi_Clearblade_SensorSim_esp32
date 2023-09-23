@@ -68,6 +68,7 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
 
         // Setear bit de grupo de evengos: CONNECTED_TO_MQTT_BROKER
         xEventGroupSetBits(*mqtt_client.mqtt_event_group, CONNECTED_TO_MQTT_BROKER);
+        xEventGroupClearBits(*mqtt_client.mqtt_event_group, DISCONNECTED_FROM_MQTT_BROKER);
 
         char bufferTopic[100];
 
@@ -87,7 +88,8 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
         break;
 
     case MQTT_EVENT_DISCONNECTED:
-        ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
+        ESP_LOGW(TAG, "MQTT_EVENT_DISCONNECTED");
+        xEventGroupSetBits(*mqtt_client.mqtt_event_group, DISCONNECTED_FROM_MQTT_BROKER);
         xEventGroupClearBits(*mqtt_client.mqtt_event_group, CONNECTED_TO_MQTT_BROKER);
         break;
 
@@ -114,7 +116,7 @@ static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
         break;
 
     case MQTT_EVENT_ERROR:
-        ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
+        ESP_LOGW(TAG, "MQTT_EVENT_ERROR");
         last_error_count++;
         last_error_code |= ERROR_CODE_MQTT;
         break;
@@ -144,20 +146,25 @@ void mqtt_app_main_task(void *parm)
     ESP_LOGI(TAG, "Arrancando MQTT client... ");
     esp_mqtt_client_start(*mqtt_client.client_handle);
 
+    xEventGroupWaitBits(*mqtt_client.mqtt_event_group, CONNECTED_TO_MQTT_BROKER,
+                        pdFALSE,
+                        pdTRUE,
+                        portMAX_DELAY);
+    ESP_LOGI(TAG, "Primera conexión al Broker establecida...");
+
     while (1)
     {
-
-        while (!mqtt_disconnected_event_flag)
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
-
-        ESP_LOGI(TAG, "Actualizando configuracion Cliente MQTT... ");
+        xEventGroupWaitBits(*mqtt_client.mqtt_event_group, DISCONNECTED_FROM_MQTT_BROKER,
+                            pdFALSE,
+                            pdTRUE,
+                            portMAX_DELAY);
+        ESP_LOGW(TAG, "Reconfigurando conexión y cliente MQTT...");
         if (mqtt_client_configure())
         {
-            ESP_LOGI(TAG, "Seteando configuracion Cliente MQTT... ");
+            ESP_LOGW(TAG, "Seteando configuracion Cliente MQTT... ");
             esp_mqtt_set_config(*mqtt_client.client_handle, &mqtt_client_config);
-            ESP_LOGI(TAG, "Reseteando flag evento disconnected. ");
-            mqtt_disconnected_event_flag = false;
         }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
     vTaskDelete(NULL);
 }
