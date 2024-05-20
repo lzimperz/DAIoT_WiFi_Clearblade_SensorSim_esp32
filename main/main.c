@@ -26,7 +26,7 @@
 #define CLEARBLADE_REGISTRY "registry_1"
 
 // Configurar CLEARBLADE_DEVICE_ID segun tu nombre
-#define CLEARBLADE_DEVICE_ID "device-101" // Ejemplo para Leopoldo: "device-101"
+#define CLEARBLADE_DEVICE_ID "device-1xx" // Ejemplo para Leopoldo: "device-101"
 // 101	Leopoldo
 // 102	Matias
 // 103	Joaquin
