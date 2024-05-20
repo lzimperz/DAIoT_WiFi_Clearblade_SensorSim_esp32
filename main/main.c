@@ -28,15 +28,22 @@
 // Configurar CLEARBLADE_DEVICE_ID segun tu nombre
 #define CLEARBLADE_DEVICE_ID "device-101" // Ejemplo para Leopoldo: "device-101"
 // 101	Leopoldo
-// 102	Gabriel
-// 103	Alejandro
-// 104	Alena
-// 105	Celeste
-// 106	Ignacio
-// 107	Juan
-// 108	Agustin
-// 109	Gonzalo
-// 110	Fabián
+// 102	Matias
+// 103	Joaquin
+// 104	Macol
+// 105	Cristian
+// 106	Jose
+// 107	Facundo
+// 108	Leandro
+// 109	Josselyn
+// 110	Juan
+// 111	María
+// 112	Ignacio
+// 113	Gonzalo
+// 114	Alejandro
+// 115	Jeanneth
+// 116	Zeus
+// 117	Luis
 
 static const char *TAG = "Main section";
 
