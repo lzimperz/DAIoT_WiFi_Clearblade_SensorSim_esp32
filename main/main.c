@@ -18,32 +18,28 @@
 #include "temp_sensor.h"
 #include "clearblade_connect.h"
 
-#define WIFI_SSID "Deconet"          // !!!!!!!!!!! Configurar
-#define WIFI_PASSWORD "0103371183xx" // !!!!!!!!!!! Configurar
+#define WIFI_SSID "wifi-ssid"          // !!!!!!!!!!! Configurar
+#define WIFI_PASSWORD "wifi-pass" // !!!!!!!!!!! Configurar
 #define CLEARBLADE_BROKER_URI "mqtts://us-central1-mqtt.clearblade.com"
 #define CLEARBLADE_PROJECT_ID "daiot-practica"
 #define CLEARBLADE_REGION "us-central1"
 #define CLEARBLADE_REGISTRY "registry_1"
 
 // Configurar CLEARBLADE_DEVICE_ID segun tu nombre
-#define CLEARBLADE_DEVICE_ID "device-1xx" // Ejemplo para Leopoldo: "device-101"
+#define CLEARBLADE_DEVICE_ID "device-101" // Ejemplo para Leopoldo: "device-101"
 // 101	Leopoldo
-// 102	Matias
-// 103	Joaquin
-// 104	Macol
-// 105	Cristian
-// 106	Jose
-// 107	Facundo
-// 108	Leandro
-// 109	Josselyn
-// 110	Juan
-// 111	María
-// 112	Ignacio
-// 113	Gonzalo
-// 114	Alejandro
-// 115	Jeanneth
-// 116	Zeus
-// 117	Luis
+// 102	Pablo Horacio
+// 103	Eberth Gabriel
+// 104	Jose Pedro
+// 105	Juan David
+// 106	Martin Anibal
+// 107	Rodrigo Jurgen
+// 108	Mariángel José
+// 109	Luis Gabriel
+// 110	María Antonella
+// 111	Jesús Enrique
+// 112	Denis Jorge
+// 113	Ernesto Enrique
 
 static const char *TAG = "Main section";
 
